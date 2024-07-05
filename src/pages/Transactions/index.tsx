@@ -5,6 +5,7 @@ import {
   TransactionsContainer,
   TransactionsTable
 } from './styles'
+import { SearchForm } from '@/components/SearchForm'
 
 export function Transactions() {
   return (
@@ -13,6 +14,8 @@ export function Transactions() {
       <Summary />
 
       <TransactionsContainer>
+        <SearchForm />
+        
         <TransactionsTable>
           <tbody>
             <tr>
