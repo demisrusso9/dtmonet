@@ -37,15 +37,15 @@ export const Content = styled(Dialog.Content)`
       border: 0;
       background: ${({ theme }) => theme['gray-900']};
       color: ${({ theme }) => theme['gray-300']};
-      
+
       padding: 1rem;
-      
+
       &::placeholder {
         color: ${({ theme }) => theme['gray-300']};
       }
     }
 
-    button[type="submit"] {
+    button[type='submit'] {
       height: 58px;
       border: 0;
       background: ${({ theme }) => theme['green-500']};
@@ -56,7 +56,12 @@ export const Content = styled(Dialog.Content)`
       margin-top: 1.5rem;
       transition: background-color 0.2s;
 
-      &:hover {
+      &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+
+      &:not(:disabled):hover {
         background: ${({ theme }) => theme['green-700']};
       }
     }
@@ -81,7 +86,7 @@ export const TransactionType = styled(RadioGroup.Root)`
   margin-top: 1.5rem;
 `
 
-export const TransactionTypeButton = styled(RadioGroup.Item) <TransactionTypeButtonProps>`
+export const TransactionTypeButton = styled(RadioGroup.Item)<TransactionTypeButtonProps>`
   background: ${({ theme }) => theme['gray-700']};
   color: ${({ theme }) => theme['gray-300']};
   padding: 1rem;
@@ -93,12 +98,14 @@ export const TransactionTypeButton = styled(RadioGroup.Item) <TransactionTypeBut
   border: 0;
 
   svg {
-    color: ${({ theme, variant }) => (variant === 'income' ? theme['green-300'] : theme['red-300'])};
+    color: ${({ theme, variant }) =>
+      variant === 'income' ? theme['green-300'] : theme['red-300']};
   }
 
   &[data-state='checked'] {
     color: ${({ theme }) => theme['white']};
-    background: ${({ theme, variant }) => (variant === 'income' ? theme['green-500'] : theme['red-500'])};
+    background: ${({ theme, variant }) =>
+      variant === 'income' ? theme['green-500'] : theme['red-500']};
     transition: background-color 0.2s;
 
     svg {
