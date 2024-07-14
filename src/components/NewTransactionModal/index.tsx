@@ -10,6 +10,7 @@ import { ArrowCircleDown, ArrowCircleUp, X } from 'phosphor-react'
 import { Controller, useForm } from 'react-hook-form'
 import * as z from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useTransactions } from '@/hooks/useTransactions'
 
 const schema = z.object({
   description: z.string().min(3).max(200),
@@ -20,12 +21,21 @@ const schema = z.object({
 
 type NewTransactionModalInputs = z.infer<typeof schema>
 
-export function NewTransactionModal() {
+interface NewTransactionModalProps {
+  handleTransactionModalOpenChange: (status: boolean) => void
+}
+
+export function NewTransactionModal({
+  handleTransactionModalOpenChange
+}: NewTransactionModalProps) {
+  const { createNewTransaction } = useTransactions()
+
   const {
     control,
     register,
     handleSubmit,
-    formState: { isSubmitting }
+    formState: { isSubmitting },
+    reset
   } = useForm<NewTransactionModalInputs>({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -33,8 +43,22 @@ export function NewTransactionModal() {
     }
   })
 
-  function handleCreateNewTransaction(data: NewTransactionModalInputs) {
-    console.log(data)
+  async function handleCreateNewTransaction(data: NewTransactionModalInputs) {
+    const { description, category, price, type } = data
+
+    try {
+      await createNewTransaction({
+        description,
+        category,
+        price,
+        type
+      })
+
+      handleTransactionModalOpenChange(false)
+      reset()
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
