@@ -11,14 +11,19 @@ export const SummaryContainer = styled.section`
   padding: 0 1.5rem;
 
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 2rem;
 
-  margin-top: -5rem;   
+  margin-top: -5rem;
+
+  @media (max-width: 340px) {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
 `
 
 export const SummaryCard = styled.div<SummaryCardProps>`
-  background: ${({ theme, variant }) => variant === 'green' ? theme['green-500'] : theme['gray-600']};
+  background: ${({ theme, variant }) =>
+    variant === 'green' ? theme['green-500'] : theme['gray-600']};
   border-radius: 6px;
   padding: 2rem;
 
@@ -28,7 +33,7 @@ export const SummaryCard = styled.div<SummaryCardProps>`
     justify-content: space-between;
     color: ${({ theme }) => theme['gray-300']};
   }
-  
+
   strong {
     display: block;
     font-size: 2rem;

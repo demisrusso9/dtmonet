@@ -5,6 +5,7 @@ export const SearchFormContainer = styled.form`
   gap: 1rem;
 
   input {
+    width: 100%;
     flex: 1;
     border-radius: 6px;
     border: 0;
